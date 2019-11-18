@@ -65,7 +65,7 @@ void main() {
 Java:
 ```
 // Build the shader. If you don't have a type of shader the file can be null.
-RifeShader builder = new RifeShader(new File("src/vertexShader.glsl"), null, new File("src/fragmentShader.glsl"));
+RifeShader builder = new RifeShader(new File("res/vertexShader.glsl"), null, new File("res/fragmentShader.glsl"));
 builder.build();
 
 builder.getVertexShader().getShaderSource();

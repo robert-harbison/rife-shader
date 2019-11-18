@@ -1,4 +1,4 @@
-package com.robertharbison.rifeshader.builder;
+package com.robertharbison.rifeshader;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,15 +7,14 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.robertharbison.rifeshader.RifeShader;
-import com.robertharbison.rifeshader.Shader;
 import com.robertharbison.rifeshader.utils.ShaderUtils;
 
 public class ShaderBuilder {
 
-	public static void build(RifeShader shaderBuilder, File file) {
-//		StringBuilder shaderSource = new StringBuilder();
-
+	/*
+	 * Build shader.
+	 */
+	protected static void build(RifeShader shaderBuilder, File file) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			processFile(shaderBuilder, reader);
@@ -25,6 +24,9 @@ public class ShaderBuilder {
 		}
 	}
 
+	/*
+	 * Process the file.
+	 */
 	private static void processFile(RifeShader shaderBuilder, BufferedReader reader) throws IOException {
 		StringBuilder shaderSource = new StringBuilder();
 
@@ -58,6 +60,9 @@ public class ShaderBuilder {
 		}
 	}
 
+	/*
+	 * Process type line and return the shader type.
+	 */
 	private static int processType(String line) {
 		Pattern pattern = Pattern.compile("\"(.*?)\"");
 		Matcher matcher = pattern.matcher(line);

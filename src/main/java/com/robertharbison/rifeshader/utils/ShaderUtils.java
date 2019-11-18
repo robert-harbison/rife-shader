@@ -3,9 +3,11 @@ package com.robertharbison.rifeshader.utils;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL32;
 
+/*
+ * Internal utilities.
+ */
 public class ShaderUtils {
 
-	// TODO: Make a shader type class (enum) for this.
 	public static final int VERTEX_SHADER_TYPE = GL20.GL_VERTEX_SHADER;
 	public static final int FRAGMENT_SHADER_TYPE = GL20.GL_FRAGMENT_SHADER;
 	public static final int GEOMETRY_SHADER_TYPE = GL32.GL_GEOMETRY_SHADER;

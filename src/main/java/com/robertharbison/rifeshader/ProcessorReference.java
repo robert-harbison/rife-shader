@@ -1,5 +1,8 @@
-package com.robertharbison.rifeshader.builder;
+package com.robertharbison.rifeshader;
 
+/*
+ * Variables used during the building of shaders.
+ */
 public class ProcessorReference {
 
 	public static final String PRE_PROCESSOR_SYMBOL = "#";
