@@ -13,7 +13,7 @@ public class ShaderUtils {
 	public static final String VERTEX_SHADER_NAME = "vertex";
 	public static final String FRAGMENT_SHADER_NAME = "fragment";
 	public static final String GEOMETRY_SHADER_NAME = "geometry";
-
+	
 	/*
 	 * Get the OpenGL shader type from a shader name. Returns -1 if the name is a
 	 * invalid shader type.

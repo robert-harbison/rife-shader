@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.robertharbison.rifeshader.RifeShader;
 import com.robertharbison.rifeshader.Shader;
 import com.robertharbison.rifeshader.utils.ShaderUtils;
 
 public class ShaderBuilder {
 
-	protected static void build(RifeShaderBuilder shaderBuilder, File file) {
+	public static void build(RifeShader shaderBuilder, File file) {
 //		StringBuilder shaderSource = new StringBuilder();
 
 		try {
@@ -24,14 +25,14 @@ public class ShaderBuilder {
 		}
 	}
 
-	private static void processFile(RifeShaderBuilder shaderBuilder, BufferedReader reader) throws IOException {
+	private static void processFile(RifeShader shaderBuilder, BufferedReader reader) throws IOException {
 		StringBuilder shaderSource = new StringBuilder();
 
 		String line;
 		boolean inFile = false;
 		int shaderType = -1;
 		while ((line = reader.readLine()) != null) {
-			if (line.startsWith(PreProcessReference.TYPE_COMMAND)) {
+			if (line.startsWith(ProcessorReference.TYPE_COMMAND)) {
 				if (inFile == true) {
 					shaderBuilder.addShader(new Shader(shaderType, new StringBuilder(shaderSource)));
 					inFile = false;
@@ -48,6 +49,7 @@ public class ShaderBuilder {
 				}
 			}
 		}
+		
 		// Deals with the end of file save
 		if (inFile == true) {
 			shaderBuilder.addShader(new Shader(shaderType, new StringBuilder(shaderSource)));

@@ -1,11 +1,11 @@
-package com.robertharbison.rifeshader.builder;
+package com.robertharbison.rifeshader;
 
 import java.io.File;
 
-import com.robertharbison.rifeshader.Shader;
+import com.robertharbison.rifeshader.builder.ShaderBuilder;
 import com.robertharbison.rifeshader.utils.ShaderUtils;
 
-public class RifeShaderBuilder {
+public class RifeShader {
 	
 	// TODO: A callback that can allow people to log errors
 	
@@ -22,13 +22,13 @@ public class RifeShaderBuilder {
 	private boolean seperateFileShader;
 	
 	// Compiles all the shaders from one file
-	public RifeShaderBuilder(File shaderFile) {
+	public RifeShader(File shaderFile) {
 		this.multipleShaderFile = shaderFile;
 		this.seperateFileShader = false;
 	}
 	
 	// Compile the shaders from different files. A shader can be null.
-	public RifeShaderBuilder(File vertexFile, File geometryFile, File fragmentFile) {
+	public RifeShader(File vertexFile, File geometryFile, File fragmentFile) {
 		this.vertexFile = vertexFile;
 		this.geometryFile = geometryFile;
 		this.fragmentFile = fragmentFile;
@@ -37,16 +37,12 @@ public class RifeShaderBuilder {
 	
 	public void build() {
 		if (seperateFileShader) {
-			ShaderBuilder.build(this, vertexFile);
-			ShaderBuilder.build(this, geometryFile);
-			ShaderBuilder.build(this, fragmentFile);
+			if (vertexFile != null) ShaderBuilder.build(this, vertexFile);
+			if (geometryFile != null) ShaderBuilder.build(this, geometryFile);
+			if (fragmentFile != null) ShaderBuilder.build(this, fragmentFile);
 		}  else {
-			ShaderBuilder.build(this, multipleShaderFile);
+			if (multipleShaderFile != null) ShaderBuilder.build(this, multipleShaderFile);
 		}
-	}
-	
-	public void compile() {
-		
 	}
 	
 	public Shader getVertexShader() {
@@ -73,7 +69,7 @@ public class RifeShaderBuilder {
 		return fragmentShader;
 	}
 
-	protected void addShader(Shader shader) {
+	public void addShader(Shader shader) {
 		switch(shader.getType()) {
 			case ShaderUtils.VERTEX_SHADER_TYPE: this.vertexShader = shader;
 			case ShaderUtils.GEOMETRY_SHADER_TYPE: this.geometryShader = shader;
