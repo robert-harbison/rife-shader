@@ -5,11 +5,11 @@ Rife Shader is a GLSL preprocessor built in Java.
 ## Features
 - Write GLSL shaders in the same file.
 - Supports Vertex, Geometry and Fragment shaders.
+- Macros
+	- Set macros from Java as well as GLSL.
 
 ## Coming Features
 - Requiring files (In Progress).
-- Macros
-	- Set macros from java as well as GLSL
 - Command line tool to generate shader files.
 - Support for compute shaders.
 
@@ -72,6 +72,28 @@ builder.build();
 
 builder.getBuiltShaderData().getVertexShader().getShaderSource();
 builder.getBuiltShaderData().getFragmentShader().getShaderSource();
+```
+
+## Macros
+You can create macros which will be replaced with code which can be defined in both Java or GLSL. Macro names should always be uppercase.
+
+Defining Macros:
+
+Create Macro In Java (This macro will replace SHADER_LOC with src):
+```
+// This should be called after creating your builder but before building your shader.
+builder.getBuiltShaderData().addMacro("SHADER_LOC", "src");
+```
+
+Create a Macro in GLSL (Macros will be available anytime there used after defining them even between shaders):
+```
+#define SHADER_LOC "src"
+```
+
+Using a Macro (We are using the SHADER_LOC macro to require a file in that location):
+```
+// SHADER_LOC will be replaced with src so this will output like src/include2.glsl
+#require "SHADER_LOC/include2.glsl"
 ```
 
 ## Exporting Files
