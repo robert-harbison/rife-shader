@@ -45,6 +45,21 @@ public class ShaderBuilder {
 		int lineNumber = 0;
 		while ((line = reader.readLine()) != null) {
 			lineNumber++;
+			
+			// Replaces macros
+			// TODO: Optimize
+			for (String macro : shaderData.getMacros().keySet()) {
+				if (line.contains(macro)) {
+					line = line.replace(macro, shaderData.getMacros().get(macro));
+				}
+			}
+			
+			// Add macros in code. Macros does not need to be in file
+			if (line.startsWith(ProcessorReference.DEFINE_COMMAND)) {
+				processMacro(line, origFile.getName(), lineNumber);
+				continue;
+			}
+			
 
 			// Get shader type.
 			if (line.startsWith(ProcessorReference.TYPE_COMMAND)) {
@@ -90,6 +105,22 @@ public class ShaderBuilder {
 			shaderSource = new StringBuilder();
 		} else {
 			throw new ShaderBuildException(origFile.getName(), "Type not set.");
+		}
+	}
+	
+	private void processMacro(String line, String fileName, int lineNumber) throws ShaderBuildException {
+		String[] split = line.split(" ");
+		if ((split[1] != null | split[1] != " ") && (split[2] != null | split[2] != " ")) {
+			Pattern pattern = Pattern.compile("\"(.*?)\"");
+			Matcher matcher = pattern.matcher(split[2]);
+			
+			if (matcher.find()) {
+				shaderData.addMacro(split[1], matcher.group(1));
+			} else {
+				throw new ShaderBuildException(fileName, lineNumber, "Invalid define syntax.");
+			}
+		} else {
+			throw new ShaderBuildException(fileName, lineNumber, "Invalid define syntax.");
 		}
 	}
 

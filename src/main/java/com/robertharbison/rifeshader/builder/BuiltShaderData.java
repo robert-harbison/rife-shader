@@ -1,5 +1,8 @@
 package com.robertharbison.rifeshader.builder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.robertharbison.rifeshader.ShaderFile;
 import com.robertharbison.rifeshader.utils.ShaderBuilderUtils;
 
@@ -9,6 +12,16 @@ public class BuiltShaderData {
 	private ShaderFile geometryShader;
 	private ShaderFile fragmentShader;
 	private ShaderFile includeFile;
+	private Map<String, String> macroMap;
+	
+	protected BuiltShaderData() {
+		this.macroMap = new HashMap<String, String>();
+	}
+	
+	// Macros should always be all uppercase
+	public void addMacro(String name, String value) {
+		this.macroMap.put(name.toUpperCase(), value);
+	}
 
 	protected void addShader(ShaderFile shader) {
 		switch (shader.getType()) {
@@ -61,5 +74,9 @@ public class BuiltShaderData {
 	
 	protected ShaderFile getIncludeFile() {
 		return includeFile;
+	}
+	
+	public Map<String, String> getMacros() {
+		return macroMap;
 	}
 }
