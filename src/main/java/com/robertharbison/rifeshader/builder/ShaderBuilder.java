@@ -11,20 +11,24 @@ import com.robertharbison.rifeshader.Shader;
 import com.robertharbison.rifeshader.utils.ShaderUtils;
 
 public class ShaderBuilder {
-	
+
 	private BuiltShaderData shaderData;
-	
+
 	public ShaderBuilder() {
 		shaderData = new BuiltShaderData();
+	}
+	
+	public void build(File file) {
+		build(file, false);
 	}
 
 	/*
 	 * Build shader.
 	 */
-	public void build(File file) {
+	public void build(File file, boolean isInclude) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
-			processFile(reader);
+			processFile(reader, isInclude);
 			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -34,13 +38,15 @@ public class ShaderBuilder {
 	/*
 	 * Process the file.
 	 */
-	private void processFile(BufferedReader reader) throws IOException {
+	// TODO: Add exception for when shader is not built due to error
+	private void processFile(BufferedReader reader, boolean isInclude) throws IOException {
 		StringBuilder shaderSource = new StringBuilder();
 
 		String line;
 		boolean inFile = false;
 		int shaderType = -1;
 		while ((line = reader.readLine()) != null) {
+			// Get shader type.
 			if (line.startsWith(ProcessorReference.TYPE_COMMAND)) {
 				if (inFile == true) {
 					shaderData.addShader(new Shader(shaderType, new StringBuilder(shaderSource)));
@@ -52,13 +58,32 @@ public class ShaderBuilder {
 					inFile = true;
 					shaderType = processType(line);
 				}
-			} else {
-				if (inFile) {
+				continue;
+			}
+
+			if (inFile) {
+				// Include file.
+				if (line.startsWith(ProcessorReference.REQUIRE_COMMAND)) {
+					ShaderBuilder builder = new ShaderBuilder();
+					String newPath = processRequire(line);
+					if (newPath != null) {
+						File newFile = new File(newPath);
+						if (newFile.exists()) {
+							builder.build(newFile);
+							shaderSource.append(builder.getBuiltShaderData().getIncludeFile().getShaderSource());
+						} else {
+							// TODO: File does not exist shader exception
+						}
+					} else {
+						break;
+					}
+					continue;
+				} else {
 					shaderSource.append(line).append("//\n");
 				}
 			}
 		}
-		
+
 		// Deals with the end of file save
 		if (inFile == true) {
 			shaderData.addShader(new Shader(shaderType, new StringBuilder(shaderSource)));
@@ -77,10 +102,23 @@ public class ShaderBuilder {
 		if (matcher.find()) {
 			return ShaderUtils.getShaderTypeFromString(matcher.group(1));
 		} else {
+			// TODO: Add exception for invalid type.
 			return -1;
 		}
 	}
 	
+	private String processRequire(String line) {
+		Pattern pattern = Pattern.compile("\"(.*?)\"");
+		Matcher matcher = pattern.matcher(line);
+
+		if (matcher.find()) {
+			return matcher.group(1);
+		} else {
+			// TODO: Add exception for invalid include.
+			return null;
+		}
+	}
+
 	/*
 	 * @return BuiltShaderData Get the built shader data.
 	 */

@@ -3,6 +3,7 @@ package com.robertharbison.rifeshader;
 /*
  * Holds data about a built shader.
  */
+// TODO: Rename to shader file (the include file also uses this)
 public class Shader {
 
 	private int type;
