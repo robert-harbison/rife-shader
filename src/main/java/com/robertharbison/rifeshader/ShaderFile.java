@@ -1,7 +1,5 @@
 package com.robertharbison.rifeshader;
 
-import com.robertharbison.rifeshader.utils.ShaderBuilderUtils;
-
 /*
  * Holds data about a shader file. This is used for both include files and normal shaders.
  */

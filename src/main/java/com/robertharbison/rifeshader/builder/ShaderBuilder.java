@@ -130,7 +130,6 @@ public class ShaderBuilder {
 
 		if (matcher.find()) {
 			int type = ShaderBuilderUtils.getShaderFileType(matcher.group(1));
-			System.out.println(type + " " + matcher.group(1));
 			if (type == -1) {
 				throw new ShaderBuildException(fileName, lineNumber, "Invalid type."); 
 			}

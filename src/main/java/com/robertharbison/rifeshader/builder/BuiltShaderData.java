@@ -27,7 +27,6 @@ public class BuiltShaderData {
 		if (shader.getType() == ShaderBuilderUtils.VERTEX_SHADER_TYPE) {
 			this.vertexShader = shader;
 		} else if (shader.getType() == ShaderBuilderUtils.GEOMETRY_SHADER_TYPE) {
-			System.out.println("geometry" + " " + shader.getType() + " " + ShaderBuilderUtils.GEOMETRY_SHADER_TYPE);
 			this.geometryShader = shader;
 		} else if (shader.getType() == ShaderBuilderUtils.FRAGMENT_SHADER_TYPE) {
 			this.fragmentShader = shader;
