@@ -35,7 +35,6 @@ public class ShaderBuilder {
 	/*
 	 * Process the file.
 	 */
-	// TODO: Add exception for when shader is not built due to error
 	private void processFile(File origFile, BufferedReader reader, boolean isInclude)
 			throws IOException, ShaderBuildException {
 		StringBuilder shaderSource = new StringBuilder();

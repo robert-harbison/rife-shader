@@ -9,6 +9,7 @@ Rife Shader is a GLSL preprocessor for Java that I am building for a LWJGL3 game
 ## Coming Features
 - Requiring files (In Progress).
 - Macros
+	- Set macros from java as well as GLSL
 - Command line tool to generate shader files.
 - Support for compute shaders.
 
