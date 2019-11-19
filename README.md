@@ -45,9 +45,9 @@ RifeShader builder = new RifeShader(new File("res/testShader.glsl"));
 builder.build();
 	
 // Get the built source of a shader type. Will return null if the shader file doesn't contain a type for that shader.
-builder.getVertexShader().getShaderSource();
-builder.getGeometryShader().getShaderSource();
-builder.getFragmentShader().getShaderSource();
+builder.getBuiltShaderData().getVertexShader().getShaderSource();
+builder.getBuiltShaderData().getGeometryShader().getShaderSource();
+builder.getBuiltShaderData().getFragmentShader().getShaderSource();
 ```
 
 Writing Shaders In Seperate Files:
@@ -68,6 +68,6 @@ Java:
 RifeShader builder = new RifeShader(new File("res/vertexShader.glsl"), null, new File("res/fragmentShader.glsl"));
 builder.build();
 
-builder.getVertexShader().getShaderSource();
-builder.getFragmentShader().getShaderSource();
+builder.getBuiltShaderData().getVertexShader().getShaderSource();
+builder.getBuiltShaderData().getFragmentShader().getShaderSource();
 ```

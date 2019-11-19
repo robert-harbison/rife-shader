@@ -1,4 +1,4 @@
-package com.robertharbison.rifeshader;
+package com.robertharbison.rifeshader.builder;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,17 +7,24 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.robertharbison.rifeshader.Shader;
 import com.robertharbison.rifeshader.utils.ShaderUtils;
 
 public class ShaderBuilder {
+	
+	private BuiltShaderData shaderData;
+	
+	public ShaderBuilder() {
+		shaderData = new BuiltShaderData();
+	}
 
 	/*
 	 * Build shader.
 	 */
-	protected static void build(RifeShader shaderBuilder, File file) {
+	public void build(File file) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
-			processFile(shaderBuilder, reader);
+			processFile(reader);
 			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -27,7 +34,7 @@ public class ShaderBuilder {
 	/*
 	 * Process the file.
 	 */
-	private static void processFile(RifeShader shaderBuilder, BufferedReader reader) throws IOException {
+	private void processFile(BufferedReader reader) throws IOException {
 		StringBuilder shaderSource = new StringBuilder();
 
 		String line;
@@ -36,7 +43,7 @@ public class ShaderBuilder {
 		while ((line = reader.readLine()) != null) {
 			if (line.startsWith(ProcessorReference.TYPE_COMMAND)) {
 				if (inFile == true) {
-					shaderBuilder.addShader(new Shader(shaderType, new StringBuilder(shaderSource)));
+					shaderData.addShader(new Shader(shaderType, new StringBuilder(shaderSource)));
 					inFile = false;
 					shaderSource = new StringBuilder();
 				}
@@ -54,7 +61,7 @@ public class ShaderBuilder {
 		
 		// Deals with the end of file save
 		if (inFile == true) {
-			shaderBuilder.addShader(new Shader(shaderType, new StringBuilder(shaderSource)));
+			shaderData.addShader(new Shader(shaderType, new StringBuilder(shaderSource)));
 			inFile = false;
 			shaderSource = new StringBuilder();
 		}
@@ -63,7 +70,7 @@ public class ShaderBuilder {
 	/*
 	 * Process type line and return the shader type.
 	 */
-	private static int processType(String line) {
+	private int processType(String line) {
 		Pattern pattern = Pattern.compile("\"(.*?)\"");
 		Matcher matcher = pattern.matcher(line);
 
@@ -72,5 +79,12 @@ public class ShaderBuilder {
 		} else {
 			return -1;
 		}
+	}
+	
+	/*
+	 * @return BuiltShaderData Get the built shader data.
+	 */
+	public BuiltShaderData getBuiltShaderData() {
+		return shaderData;
 	}
 }

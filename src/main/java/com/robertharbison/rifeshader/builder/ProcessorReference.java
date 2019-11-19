@@ -1,4 +1,4 @@
-package com.robertharbison.rifeshader;
+package com.robertharbison.rifeshader.builder;
 
 /*
  * Variables used during the building of shaders.

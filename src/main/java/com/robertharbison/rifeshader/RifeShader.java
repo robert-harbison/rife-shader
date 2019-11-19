@@ -2,18 +2,17 @@ package com.robertharbison.rifeshader;
 
 import java.io.File;
 
-import com.robertharbison.rifeshader.utils.ShaderUtils;
+import com.robertharbison.rifeshader.builder.BuiltShaderData;
+import com.robertharbison.rifeshader.builder.ShaderBuilder;
 
 public class RifeShader {
-		
-	private Shader vertexShader;
-	private Shader geometryShader;
-	private Shader fragmentShader;
 	
 	private File multipleShaderFile;
 	private File vertexFile;
 	private File geometryFile;
 	private File fragmentFile;
+	
+	private ShaderBuilder shaderBuilder;
 	
 	// If the files are seprate or one large file.
 	private boolean seperateFileShader;
@@ -26,6 +25,7 @@ public class RifeShader {
 	public RifeShader(File shaderFile) {
 		this.multipleShaderFile = shaderFile;
 		this.seperateFileShader = false;
+		this.shaderBuilder = new ShaderBuilder();
 	}
 	
 	/*
@@ -40,6 +40,7 @@ public class RifeShader {
 		this.geometryFile = geometryFile;
 		this.fragmentFile = fragmentFile;
 		this.seperateFileShader = true;
+		this.shaderBuilder = new ShaderBuilder();
 	}
 	
 	/*
@@ -47,52 +48,18 @@ public class RifeShader {
 	 */
 	public void build() {
 		if (seperateFileShader) {
-			if (vertexFile != null) ShaderBuilder.build(this, vertexFile);
-			if (geometryFile != null) ShaderBuilder.build(this, geometryFile);
-			if (fragmentFile != null) ShaderBuilder.build(this, fragmentFile);
+			if (vertexFile != null) shaderBuilder.build(vertexFile);
+			if (geometryFile != null) shaderBuilder.build(geometryFile);
+			if (fragmentFile != null) shaderBuilder.build(fragmentFile);
 		}  else {
-			if (multipleShaderFile != null) ShaderBuilder.build(this, multipleShaderFile);
+			if (multipleShaderFile != null) shaderBuilder.build(multipleShaderFile);
 		}
-	}
-	
-	/*
-	 * @return Shader The vertex shader. (Returns null if shader has not been built yet.)
-	 */
-	public Shader getVertexShader() {
-		if (vertexShader == null) {
-			System.out.println("Can not get vertex shader source. Has not been built.");
-		}
-		
-		return vertexShader;
-	}
-	
-	/*
-	 * @return Shader The geometry shader. (Returns null if shader has not been built yet.)
-	 */
-	public Shader getGeometryShader() {
-		if (geometryShader == null) {
-			System.out.println("Can not get geometry shader source. Has not been built.");
-		}
-		
-		return geometryShader;
-	}
-	
-	/*
-	 * @return Shader The fragment shader. (Returns null if shader has not been built yet.)
-	 */
-	public Shader getFragmentShader() {
-		if (fragmentShader == null) {
-			System.out.println("Can not get fragment shader source. Has not been built.");
-		}
-		
-		return fragmentShader;
 	}
 
-	protected void addShader(Shader shader) {
-		switch(shader.getType()) {
-			case ShaderUtils.VERTEX_SHADER_TYPE: this.vertexShader = shader;
-			case ShaderUtils.GEOMETRY_SHADER_TYPE: this.geometryShader = shader;
-			case ShaderUtils.FRAGMENT_SHADER_TYPE: this.fragmentShader = shader;
-		}
+	/*
+	 * @return BuiltShaderData Get the built shader data.
+	 */
+	public BuiltShaderData getBuiltShaderData() {
+		return shaderBuilder.getBuiltShaderData();
 	}
 }
