@@ -22,6 +22,18 @@ public class BuiltShaderData {
 			this.includeFile = shader;
 		}
 	}
+	
+	public boolean hasVertexShader() {
+		return vertexShader != null;
+	}
+	
+	public boolean hasGeometryShader() {
+		return geometryShader != null;
+	}
+	
+	public boolean hasFragmentShader() {
+		return fragmentShader != null;
+	}
 
 	/*
 	 * @return Shader The vertex shader. (Returns null if shader has not been built

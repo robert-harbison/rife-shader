@@ -74,5 +74,20 @@ builder.getBuiltShaderData().getVertexShader().getShaderSource();
 builder.getBuiltShaderData().getFragmentShader().getShaderSource();
 ```
 
+## Exporting Files
+You can export the built shader to files using the exportBuiltShaderToFiles method in the ShaderExporter class.
+
+This method takes 3 parameters:
+- The folder path to export the files to.
+- The base name for the exported files. (If it's testShader then testShaderVertex.glsl, testShaderGeometry.glsl and testShaderFragment.glsl will be exported)
+- The built shader data from the builder.
+
+```
+RifeShader builder = new RifeShader(new File("res/testShader.glsl"));
+builder.build();
+		
+ShaderExporter.exportBuiltShaderToFiles("build/shaders", "testShader", builder.getBuiltShaderData());
+```
+
 ## Exceptions
 - ShaderBuildException - Thrown when there is a error in the shader that you are building.

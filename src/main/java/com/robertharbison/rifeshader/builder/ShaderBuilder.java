@@ -77,7 +77,8 @@ public class ShaderBuilder {
 					}
 					continue;
 				} else {
-					shaderSource.append(line).append("//\n");
+//					shaderSource.append(line).append("//\n");
+					shaderSource.append(line).append("\n");
 				}
 			}
 		}
