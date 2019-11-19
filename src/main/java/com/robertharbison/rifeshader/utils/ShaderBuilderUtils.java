@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL32;
  */
 public class ShaderBuilderUtils {
 
+	// TODO: Put into enum
 	public static final int VERTEX_SHADER_TYPE = GL20.GL_VERTEX_SHADER;
 	public static final int FRAGMENT_SHADER_TYPE = GL20.GL_FRAGMENT_SHADER;
 	public static final int GEOMETRY_SHADER_TYPE = GL32.GL_GEOMETRY_SHADER;

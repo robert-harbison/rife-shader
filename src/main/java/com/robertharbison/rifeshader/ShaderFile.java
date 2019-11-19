@@ -1,10 +1,9 @@
 package com.robertharbison.rifeshader;
 
 /*
- * Holds data about a built shader.
+ * Holds data about a shader file. This is used for both include files and normal shaders.
  */
-// TODO: Rename to shader file (the include file also uses this)
-public class Shader {
+public class ShaderFile {
 
 	private int type;
 	private StringBuilder shaderSource;
@@ -15,13 +14,13 @@ public class Shader {
 	 * @param type The OpenGL shader type.
 	 * @param shaderSource The shader source code.
 	 */
-	public Shader(int type, StringBuilder shaderSource) {
+	public ShaderFile(int type, StringBuilder shaderSource) {
 		this.type = type;
 		this.shaderSource = shaderSource;
 	}
 
 	/*
-	 * @return int The OpenGL shader type.
+	 * @return int The shader file type.
 	 */
 	public int getType() {
 		return type;

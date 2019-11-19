@@ -1,16 +1,16 @@
 package com.robertharbison.rifeshader.builder;
 
-import com.robertharbison.rifeshader.Shader;
+import com.robertharbison.rifeshader.ShaderFile;
 import com.robertharbison.rifeshader.utils.ShaderBuilderUtils;
 
 public class BuiltShaderData {
 
-	private Shader vertexShader;
-	private Shader geometryShader;
-	private Shader fragmentShader;
-	private Shader includeFile;
+	private ShaderFile vertexShader;
+	private ShaderFile geometryShader;
+	private ShaderFile fragmentShader;
+	private ShaderFile includeFile;
 
-	protected void addShader(Shader shader) {
+	protected void addShader(ShaderFile shader) {
 		switch (shader.getType()) {
 		case ShaderBuilderUtils.VERTEX_SHADER_TYPE:
 			this.vertexShader = shader;
@@ -27,7 +27,7 @@ public class BuiltShaderData {
 	 * @return Shader The vertex shader. (Returns null if shader has not been built
 	 * yet.)
 	 */
-	public Shader getVertexShader() {
+	public ShaderFile getVertexShader() {
 		return vertexShader;
 	}
 
@@ -35,7 +35,7 @@ public class BuiltShaderData {
 	 * @return Shader The geometry shader. (Returns null if shader has not been
 	 * built yet.)
 	 */
-	public Shader getGeometryShader() {
+	public ShaderFile getGeometryShader() {
 		return geometryShader;
 	}
 
@@ -43,11 +43,11 @@ public class BuiltShaderData {
 	 * @return Shader The fragment shader. (Returns null if shader has not been
 	 * built yet.)
 	 */
-	public Shader getFragmentShader() {
+	public ShaderFile getFragmentShader() {
 		return fragmentShader;
 	}
 	
-	public Shader getIncludeFile() {
+	protected ShaderFile getIncludeFile() {
 		return includeFile;
 	}
 }
