@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL32;
 /*
  * Internal utilities.
  */
-public class ShaderUtils {
+public class ShaderBuilderUtils {
 
 	public static final int VERTEX_SHADER_TYPE = GL20.GL_VERTEX_SHADER;
 	public static final int FRAGMENT_SHADER_TYPE = GL20.GL_FRAGMENT_SHADER;
@@ -18,15 +18,7 @@ public class ShaderUtils {
 	public static final String GEOMETRY_SHADER_NAME = "geometry";
 	public static final String INCLUDE_FILE_NAME = "include";
 	
-	/*
-	 * Get the OpenGL shader type from a shader name. Returns -1 if the name is a
-	 * invalid shader type.
-	 * 
-	 * @param shaderName Shader name to convert to OpenGL type.
-	 * @return int The OpenGL shader type.
-	 */
-	// TODO: Rename to shader file type
-	public static int getShaderTypeFromString(String shaderName) {
+	public static int getShaderFileType(String shaderName) {
 		switch (shaderName) {
 		case VERTEX_SHADER_NAME:
 			return VERTEX_SHADER_TYPE;
@@ -41,15 +33,7 @@ public class ShaderUtils {
 		}
 	}
 
-	/*
-	 * Get the shader name from a OpenGL shader type. Returns null if the type is a
-	 * invalid shader type.
-	 * 
-	 * @param shaderType OpenGL shader type to get the shader name from.
-	 * @return String The shader name.
-	 */
-	// TODO: Rename to shader file type
-	public static String getShaderTypeFromOpenGL(int shaderType) {
+	public static String getShaderFileName(int shaderType) {
 		switch (shaderType) {
 		case VERTEX_SHADER_TYPE:
 			return VERTEX_SHADER_NAME;

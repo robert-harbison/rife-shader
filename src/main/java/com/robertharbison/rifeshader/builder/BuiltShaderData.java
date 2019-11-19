@@ -1,7 +1,7 @@
 package com.robertharbison.rifeshader.builder;
 
 import com.robertharbison.rifeshader.Shader;
-import com.robertharbison.rifeshader.utils.ShaderUtils;
+import com.robertharbison.rifeshader.utils.ShaderBuilderUtils;
 
 public class BuiltShaderData {
 
@@ -12,13 +12,13 @@ public class BuiltShaderData {
 
 	protected void addShader(Shader shader) {
 		switch (shader.getType()) {
-		case ShaderUtils.VERTEX_SHADER_TYPE:
+		case ShaderBuilderUtils.VERTEX_SHADER_TYPE:
 			this.vertexShader = shader;
-		case ShaderUtils.GEOMETRY_SHADER_TYPE:
+		case ShaderBuilderUtils.GEOMETRY_SHADER_TYPE:
 			this.geometryShader = shader;
-		case ShaderUtils.FRAGMENT_SHADER_TYPE:
+		case ShaderBuilderUtils.FRAGMENT_SHADER_TYPE:
 			this.fragmentShader = shader;
-		case ShaderUtils.INCLUDE_FILE_TYPE:
+		case ShaderBuilderUtils.INCLUDE_FILE_TYPE:
 			this.includeFile = shader;
 		}
 	}

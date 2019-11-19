@@ -1,9 +1,11 @@
 package com.robertharbison.rifeshader;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.robertharbison.rifeshader.builder.BuiltShaderData;
 import com.robertharbison.rifeshader.builder.ShaderBuilder;
+import com.robertharbison.rifeshader.utils.ShaderBuildException;
 
 public class RifeShader {
 	
@@ -46,7 +48,7 @@ public class RifeShader {
 	/*
 	 * Build the shaders.
 	 */
-	public void build() {
+	public void build() throws IOException, ShaderBuildException {
 		if (seperateFileShader) {
 			if (vertexFile != null) shaderBuilder.build(vertexFile);
 			if (geometryFile != null) shaderBuilder.build(geometryFile);

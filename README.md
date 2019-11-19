@@ -72,3 +72,6 @@ builder.build();
 builder.getBuiltShaderData().getVertexShader().getShaderSource();
 builder.getBuiltShaderData().getFragmentShader().getShaderSource();
 ```
+
+## Exceptions
+- ShaderBuildException - Thrown when there is a error in the shader that you are building.
