@@ -13,37 +13,37 @@ public class BuiltShaderData {
 	private ShaderFile fragmentShader;
 	private ShaderFile includeFile;
 	private Map<String, String> macroMap;
-	
+
 	protected BuiltShaderData() {
 		this.macroMap = new HashMap<String, String>();
 	}
-	
+
 	// Macros should always be all uppercase
 	public void addMacro(String name, String value) {
 		this.macroMap.put(name.toUpperCase(), value);
 	}
 
-	protected void addShader(ShaderFile shader) {
-		switch (shader.getType()) {
-		case ShaderBuilderUtils.VERTEX_SHADER_TYPE:
+	protected void addShader(ShaderFile shader) {		
+		if (shader.getType() == ShaderBuilderUtils.VERTEX_SHADER_TYPE) {
 			this.vertexShader = shader;
-		case ShaderBuilderUtils.GEOMETRY_SHADER_TYPE:
+		} else if (shader.getType() == ShaderBuilderUtils.GEOMETRY_SHADER_TYPE) {
+			System.out.println("geometry" + " " + shader.getType() + " " + ShaderBuilderUtils.GEOMETRY_SHADER_TYPE);
 			this.geometryShader = shader;
-		case ShaderBuilderUtils.FRAGMENT_SHADER_TYPE:
+		} else if (shader.getType() == ShaderBuilderUtils.FRAGMENT_SHADER_TYPE) {
 			this.fragmentShader = shader;
-		case ShaderBuilderUtils.INCLUDE_FILE_TYPE:
+		} else if (shader.getType() == ShaderBuilderUtils.INCLUDE_FILE_TYPE) {
 			this.includeFile = shader;
 		}
 	}
-	
+
 	public boolean hasVertexShader() {
 		return vertexShader != null;
 	}
-	
+
 	public boolean hasGeometryShader() {
 		return geometryShader != null;
 	}
-	
+
 	public boolean hasFragmentShader() {
 		return fragmentShader != null;
 	}
@@ -71,11 +71,11 @@ public class BuiltShaderData {
 	public ShaderFile getFragmentShader() {
 		return fragmentShader;
 	}
-	
+
 	protected ShaderFile getIncludeFile() {
 		return includeFile;
 	}
-	
+
 	public Map<String, String> getMacros() {
 		return macroMap;
 	}
