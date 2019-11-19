@@ -1,4 +1,4 @@
-Rife Shader is a GLSL preprocessor for Java that I am building for a LWJGL3 game engine.
+Rife Shader is a GLSL preprocessor built in Java.
 
 **Warning: This library is in very early development and is not suited for production.**
 
